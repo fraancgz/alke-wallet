@@ -1,0 +1,62 @@
+/* Paleta de colores Fintech sugerida */
+:root {
+    --primary-color: #4361EE;
+    /* Azul Eléctrico solicitado en el diseño */
+    --accent-color: #2ECC71;
+    /* Verde para éxitos/ingresos */
+    --bg-light: #F4F7FE;
+    /* Fondo suave para evitar fatiga visual */
+}
+
+body {
+    background-color: var(--bg-light) !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* Clases para los colores custom */
+.bg-accent-custom {
+    background-color: var(--accent-color) !important;
+}
+
+.bg-primary-custom {
+    background-color: var(--primary-color) !important;
+}
+
+
+
+/* Estilos para los formularios */
+.auth-form {
+    transition: all 0.6s ease-in-out;
+}
+
+/* Contenedor principal del efecto */
+#auth-container {
+    position: relative;
+    background-color: white;
+    /* box-shadow: [horizontal] [vertical] [desenfoque] [difusión] [color]; */
+    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    /* Borde casi invisible */
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+}
+
+/* Este es el estado inicial del panel (a la derecha) */
+.sliding-panel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    z-index: 10;
+    /* Se asegura de estar arriba */
+    transition: 
+        transform 0.6s ease-in-out,
+        background-color 0.3s ease-in-out 0.3s;
+}
+
+/* Clase para mover el panel desde Jquery */
+.sliding-panel.move-left {
+    transform: translateX(-100%);
+}

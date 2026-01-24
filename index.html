@@ -4,15 +4,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Librería para los íconos de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <link rel="stylesheet" href="css/style.css">
-    <title>Acceso-Registro</title>
+    <title>Acceso</title>
 </head>
 
-<body>
-    <div class="container">
-        <h1>Acceso y registro con Bootstrap</h1>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<body class="bg-light">
+    <main class="container d-flex align-items-center justify-content-center vh-100">
+        <div id="auth-container" class="row">
+            <div class="col-6 col-md-6 d-flex flex-column justify-content-center p-5 auth-form" id="login-section">
+                <h2 class="fw-bold mb-4 text-primary">Iniciar Sesión</h2>
+                <form id="login-form">
+                    <div class="mb-3">
+                        <label class="form-label">Correo Electrónico</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control border-start-0" placeholder="nombre@ejemplo.com"
+                                required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control border-start-0" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 shadow-sm py-2 mb-3">Ingresar</button>
+                    <div class="text-center">
+                        <small>¿No tienes cuenta? <a href="#" id="go-to-register"
+                                class="text-decoration-none fw-bold ">Regístrate</a></small>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-6 col-md-6 d-flex flex-column justify-content-center p-5 auth-form " id="register-section">
+                <h2 class="fw-bold mb-4 text-success">Crear Cuenta</h2>
+                <form id="register-form">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre Completo</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white "><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control border-start-0" placeholder="Ej: Juan Pérez" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Correo Electrónico</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control border-start-0" placeholder="correo@ejemplo.com" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control border-start-0" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 py-2 mb-3">Registrarse</button>
+                    <div class="text-center">
+                        <small>¿Ya tienes cuenta? <a href="#" id="go-to-login"
+                                class="text-decoration-none text-success fw-bold">Inicia Sesión</a></small>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-6 col-md-6 d-flex flex-column justify-content-center align-items-center bg-primary-custom text-white p-5 text-center sliding-panel">
+                <h2 class="fw-bold">¡Bienvenido a Alke Wallet!</h2>
+                <p>Administra tus activos financieros de manera digital y segura</p>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

@@ -6,7 +6,19 @@
     <title>Inicio</title>
 </head>
 <body>
-    <h1 class="user">Bienvenido Juan Perez</h1>
+    <header>
+        <h1>Alke Wallet</h1> <nav>
+            <button onclick="cargarVista('deposit.html')">Depósito</button>
+            <button onclick="cargarVista('sendMoney.html')">Envío</button>
+            <button onclick="cargarVista('transactions.html')">Movimientos</button>
+        </nav>
+    </header>
+
+    <main id="contenedorDinamico">
+        <h2 class="user"></h2>
+        <p>Selecciona una opción del menú para comenzar</p>
+
+    </main>
 
     <script src="../js/home.js"></script>
 </body>

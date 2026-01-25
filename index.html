@@ -17,65 +17,82 @@
 <body class="bg-light">
     <main class="container d-flex align-items-center justify-content-center vh-100">
         <div id="auth-container" class="row">
-            <div class="col-6 col-md-6 d-flex flex-column justify-content-center p-5 auth-form" id="login-section">
+            <div class="col-6 col-md-6 d-flex flex-column justify-content-center p-5 auth-form" id="loginSection">
                 <h2 class="fw-bold mb-4 text-primary">Iniciar Sesión</h2>
-                <form id="login-form">
-                    <div class="mb-3">
-                        <label class="form-label">Correo Electrónico</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-envelope"></i></span>
-                            <input type="email" class="form-control border-start-0" placeholder="nombre@ejemplo.com"
-                                required>
+                <form id="loginForm">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-white"><i class="bi bi-envelope"></i></span>
+                        <div class="form-floating">
+                            <input type="email" class="form-control border-start-0" id="loginMail" name="mail"
+                                placeholder="Email" minlength="5" required>
+                            <label for="loginMail">Correo electrónico</label>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white"><i class="bi bi-lock"></i></span>
-                            <input type="password" class="form-control border-start-0" placeholder="••••••••" required>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-white"><i class="bi bi-lock"></i></span>
+                        <div class="form-floating">
+                            <input type="password" class="form-control border-start-0 pass" placeholder="••••••••"
+                                id="loginPass" name="pass" required>
+                            <label class="loginPass">Contraseña</label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 shadow-sm py-2 mb-3">Ingresar</button>
-                    <div class="text-center">
+                    <button type="submit" id="btnLogin"
+                        class="btn btn-primary w-100 shadow-sm py-2 mb-3">Ingresar</button>
+
+                    <div class="text-center mb-3">
                         <small>¿No tienes cuenta? <a href="#" id="go-to-register"
-                                class="text-decoration-none fw-bold ">Regístrate</a></small>
+                                class="text-decoration-none fw-bold">Regístrate</a></small>
+                    </div>
+
+                    <div class="alert alert-dismissible fade show d-none text-center" id="alertLogin" role="alert">
+                        <i class="bi bi-exclamation-circle me-3 fs-3"></i><small id="textLogin"></small>
                     </div>
                 </form>
             </div>
 
-            <div class="col-6 col-md-6 d-flex flex-column justify-content-center p-5 auth-form " id="register-section">
+            <div class="col-6 col-md-6 d-flex flex-column justify-content-center p-5 auth-form " id="registerSection">
                 <h2 class="fw-bold mb-4 text-success">Crear Cuenta</h2>
-                <form id="register-form">
-                    <div class="mb-3">
-                        <label class="form-label">Nombre Completo</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white "><i class="bi bi-person"></i></span>
-                            <input type="text" class="form-control border-start-0" placeholder="Ej: Juan Pérez" required>
+                <form id="registerForm">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-white "><i class="bi bi-person"></i></span>
+                        <div class="form-floating">
+                            <input type="text" class="form-control border-start-0" id="username" name="username"
+                                placeholder="" minlength="3" required>
+                            <label class="username">Nombre Completo</label>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Correo Electrónico</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white"><i class="bi bi-envelope"></i></span>
-                            <input type="email" class="form-control border-start-0" placeholder="correo@ejemplo.com" required>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-white"><i class="bi bi-envelope"></i></span>
+                        <div class="form-floating">
+                            <input type="email" class="form-control border-start-0" id="mail" name="mail" placeholder=""
+                                minlength="5" required>
+                            <label class="mail">Correo Electrónico</label>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white"><i class="bi bi-lock"></i></span>
-                            <input type="password" class="form-control border-start-0" placeholder="••••••••" required>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-white"><i class="bi bi-lock"></i></span>
+                        <div class="form-floating">
+                            <input type="password" class="form-control border-start-0" id="pass" name="pass"
+                                placeholder="" required>
+                            <label class="pass">Contraseña</label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success w-100 py-2 mb-3">Registrarse</button>
-                    <div class="text-center">
+                    <button type="submit" id="btnRegister" class="btn btn-success w-100 py-2 mb-3">Registrarse</button>
+                    
+                    <div class="text-center mb-3">
                         <small>¿Ya tienes cuenta? <a href="#" id="go-to-login"
                                 class="text-decoration-none text-success fw-bold">Inicia Sesión</a></small>
                     </div>
+
+                    <div class="alert alert-dismissible fade show d-none text-center" id="alertRegister" role="alert">
+                        <i class="bi bi-person-check me-3 fs-3"></i><small id="textRegister"></small>
+                    </div>
                 </form>
             </div>
 
-            <div class="col-6 col-md-6 d-flex flex-column justify-content-center align-items-center bg-primary-custom text-white p-5 text-center sliding-panel">
+            <div
+                class="col-6 col-md-6 d-flex flex-column justify-content-center align-items-center bg-primary-custom text-white p-5 text-center sliding-panel">
                 <h2 class="fw-bold">¡Bienvenido a Alke Wallet!</h2>
                 <p>Administra tus activos financieros de manera digital y segura</p>
             </div>

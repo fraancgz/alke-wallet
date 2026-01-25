@@ -33,6 +33,8 @@ body {
 /* Contenedor principal del efecto */
 #auth-container {
     position: relative;
+    width: 820px;
+    height: 620px;
     background-color: white;
     /* box-shadow: [horizontal] [vertical] [desenfoque] [difusión] [color]; */
     box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);

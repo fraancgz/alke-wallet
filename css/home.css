@@ -1,0 +1,46 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+main {
+    flex-grow: 1; /* Esto obliga al contenido a ocupar todo el espacio sobrante */
+}
+
+/* 1. Estilo base para los links */
+.navbar-nav .nav-link {
+    color: #6c757d;
+    transition: color 0.3s ease; /* Solo animamos el color, no el tamaño */
+    
+    /* Borde siempre presente pero invisible */
+    border-bottom: 3px solid transparent; 
+    
+    /* EVITAR REBOTE DE TEXTO*/
+    font-weight: 500; 
+}
+
+/* 2. Estilo cuando pasas el mouse (Hover) */
+.navbar-nav .nav-link:hover {
+    color: black;
+    background-color: rgba(95, 151, 235, 0.071);
+    border-radius: 4px;
+}
+
+/* 3. Estilo de la sección ACTIVA */
+.navbar-nav .nav-link.active {
+    color: black !important;
+    font-weight: bold;
+    border-bottom: 6px solid #d4d4d659;
+}
+
+#saldoActualDeposito {
+    /* Evita que el texto salte o se desfigure */
+    font-variant-numeric: tabular-nums; /* Los números dejan de saltar */
+    display: inline-block;             /* Permite que el ancho sea estable */
+    transition: color 0.7s ease; /* Transición suave de color si decides cambiarlo */
+    min-width: 1ch;                    /* Opcional: asegura un ancho mínimo */
+    text-align: right;
+
+}

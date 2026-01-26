@@ -1,3 +1,45 @@
-<section>
-    <h2>Hacer un deposito</h2>
+<section class="view-deposit d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 86px);">
+    <div class="container">
+        <div class="card shadow-lg border-0 mx-auto" style="max-width: 650px; min-height: 60vh; border-radius: 12px;">
+            <div class="card-body p-5">
+                <div class="text-center mb-5">
+                    <h3 class="fw-bold">Cargar Dinero</h3>
+                    <p class="text-muted">Ingresa el monto a tu Alke Wallet</p>
+                </div>
+
+                <form id="depositForm">
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">¿Cuánto deseas depositar?</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-primary text-white border-0">$</span>
+                            <input type="number" class="form-control border-start-0" id="montoDeposito" name="montoDeposito" placeholder="0.00" min="1000" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Método de pago</label>
+                        <select class="form-select form-select-lg" name="metodoDePagoDeposito">
+                            <option value="tarBancaria">Transferencia Bancaria</option>
+                            <option value="tarDebito">Tarjeta de Débito</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm" style="border-radius: 10px;">
+                        Confirmar Depósito
+                    </button>
+                </form>
+
+                <div class="mt-4 pt-3 border-top text-center">
+                    <small class="text-muted d-block">Tu saldo actual</small>
+                    <span class="h4 fw-bold text-success" id="saldoActualDeposito">$0</span>
+                </div>
+
+                <div class="alert alert-success alert-dimissable fade show text-center d-none" id="alertDeposit" role="alert">
+                    <i class="bi bi-cash-stack me-3 fs-1" style="color: forestgreen;"></i><small id="textDeposit"></small>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
 </section>

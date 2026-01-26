@@ -4,24 +4,41 @@
 */
 let usuariosRegistrados = JSON.parse(localStorage.getItem('usuarios_db')) || []
 
-const goToTegister = document.querySelector("#go-to-register")
-const goToLogin = document.querySelector("#go-to-login")
-const slidingPanel = document.querySelector(".sliding-panel")
+const goToRegister = document.querySelector("#go-to-register");
+const goToLogin = document.querySelector("#go-to-login");
+const loginSection = document.querySelector("#loginSection");
+const registerSection = document.querySelector("#registerSection");
+const slidingPanel = document.querySelector(".sliding-panel");
 
-
-goToTegister.addEventListener("click", (e) => {
+function cambiarInterfaz(e) {
     e.preventDefault();
-    // Movemos el panel hacia la izquierda, quitamos el color azul y colocamos el verde
-    slidingPanel.classList.add('move-left', 'bg-accent-custom');
-    slidingPanel.classList.remove('bg-primary-custom');
-})
 
-goToLogin.addEventListener("click", (e) => {
-    e.preventDefault();
-    // Devolvemos el panel a su posicion inicial, quitamos el color verde y agregamos el azul
-    slidingPanel.classList.remove('move-left', 'bg-accent-custom');
-    slidingPanel.classList.add('bg-primary-custom');
-})
+    if (window.innerWidth < 768) {
+        // LÓGICA MÓVIL: Switch puro entre d-none y d-flex
+        // Login: si tiene d-none lo quita, si no, lo pone.
+        loginSection.classList.toggle('d-none');
+        loginSection.classList.toggle('d-flex');
+        
+        // Registro: igual
+        registerSection.classList.toggle('d-none');
+        registerSection.classList.toggle('d-flex');
+    } else {
+        // LÓGICA DESKTOP: Mover el panel y cambiar color
+        slidingPanel.classList.toggle('move-left');
+        
+        if (slidingPanel.classList.contains('move-left')) {
+            slidingPanel.classList.add('bg-accent-custom');
+            slidingPanel.classList.remove('bg-primary-custom');
+        } else {
+            slidingPanel.classList.add('bg-primary-custom');
+            slidingPanel.classList.remove('bg-accent-custom');
+        }
+    }
+}
+    
+
+goToRegister.addEventListener("click", cambiarInterfaz);
+goToLogin.addEventListener("click", cambiarInterfaz);
 
 
 /* ------------------------- Obtencion de datos y validación para el formulario Login -----------------------*/

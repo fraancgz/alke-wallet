@@ -11,11 +11,13 @@ if (mailActivo) {
 
     if (datosUsuario) {
         document.querySelector(".user").textContent = `Hey ${datosUsuario.username}, bienvenido`
-    } else 
+    } else
         console.log("no")
 }
 
-function cargarVista(vista) {
+function cargarVista(e, vista) {
+
+    e.preventDefault()
     const contenedorDinamico = document.querySelector("#contenedorDinamico")
 
     // Mediante la funcion fetch se inicia el proceso de comunicación de red para obtener la pagina solicitada
@@ -23,11 +25,11 @@ function cargarVista(vista) {
     fetch(vista)
         .then(response => {
             if (!response.ok) throw new Error("Error al cargar la vista")
-                console.log(response)
+            console.log(response)
             return response.text() // Convierto la respuesta a texto/html  
         })
         .then(html => {
-            
+
             contenedorDinamico.innerHTML = html // Injecto el Html en el contenedor
         })
         .catch(error => {

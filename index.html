@@ -7,8 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
+    <link rel="shortcut icon" href="assets/icon/wallet.svg" type="image/svg+xml">
+
     <!-- Librería para los íconos de Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/style.css">
     <title>Acceso</title>
@@ -17,7 +19,7 @@
 <body class="bg-light">
     <main class="container d-flex align-items-center justify-content-center vh-100">
         <div id="auth-container" class="row">
-            <div class="col-6 col-md-6 d-flex flex-column justify-content-center p-5 auth-form" id="loginSection">
+            <div class="col-12 col-md-6 d-flex flex-column justify-content-center p-5 auth-form" id="loginSection">
                 <h2 class="fw-bold mb-4 text-primary">Iniciar Sesión</h2>
                 <form id="loginForm">
                     <div class="input-group mb-3">
@@ -34,7 +36,7 @@
                         <div class="form-floating">
                             <input type="password" class="form-control border-start-0 pass" placeholder="••••••••"
                                 id="loginPass" name="pass" required>
-                            <label class="loginPass">Contraseña</label>
+                            <label for="loginPass">Contraseña</label>
                         </div>
                     </div>
                     <button type="submit" id="btnLogin"
@@ -51,15 +53,15 @@
                 </form>
             </div>
 
-            <div class="col-6 col-md-6 d-flex flex-column justify-content-center p-5 auth-form " id="registerSection">
+            <div class="col-12 col-md-6 d-none d-md-flex flex-column justify-content-center p-5 auth-form " id="registerSection">
                 <h2 class="fw-bold mb-4 text-success">Crear Cuenta</h2>
                 <form id="registerForm">
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-white "><i class="bi bi-person"></i></span>
                         <div class="form-floating">
                             <input type="text" class="form-control border-start-0" id="username" name="username"
-                                placeholder="" minlength="3" required>
-                            <label class="username">Nombre Completo</label>
+                                placeholder="" minlength="3" required autocomplete="username">
+                            <label for="username">Nombre Completo</label>
                         </div>
                     </div>
                     <div class="input-group mb-3">
@@ -67,7 +69,7 @@
                         <div class="form-floating">
                             <input type="email" class="form-control border-start-0" id="mail" name="mail" placeholder=""
                                 minlength="5" required>
-                            <label class="mail">Correo Electrónico</label>
+                            <label for="mail">Correo Electrónico</label>
                         </div>
                     </div>
                     <div class="input-group mb-3">
@@ -75,7 +77,7 @@
                         <div class="form-floating">
                             <input type="password" class="form-control border-start-0" id="pass" name="pass"
                                 placeholder="" required>
-                            <label class="pass">Contraseña</label>
+                            <label for="pass">Contraseña</label>
                         </div>
                     </div>
                     <button type="submit" id="btnRegister" class="btn btn-success w-100 py-2 mb-3">Registrarse</button>
@@ -92,7 +94,7 @@
             </div>
 
             <div
-                class="col-6 col-md-6 d-flex flex-column justify-content-center align-items-center bg-primary-custom text-white p-5 text-center sliding-panel">
+                class="col-6 col-md-6 d-none d-md-flex flex-column justify-content-center align-items-center bg-primary-custom text-white p-5 text-center sliding-panel">
                 <h2 class="fw-bold">¡Bienvenido a Alke Wallet!</h2>
                 <p>Administra tus activos financieros de manera digital y segura</p>
             </div>

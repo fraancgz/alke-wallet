@@ -1,25 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="shortcut icon" href="../assets/icon/wallet2.svg" type="image/svg+xml">
+
+    <!-- Librería para los íconos de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../css/home.css">
     <title>Inicio</title>
 </head>
+
 <body>
     <header>
-        <h1>Alke Wallet</h1> <nav>
-            <button onclick="cargarVista('deposit.html')">Depósito</button>
-            <button onclick="cargarVista('sendMoney.html')">Envío</button>
-            <button onclick="cargarVista('transactions.html')">Movimientos</button>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><h1>AlkeWallet</h1></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" onclick="direct(event, 'deposit.html')"
+                                href="#">Depósito</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="direct(event, 'sendMoney.html')" href="#">Envío</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="direct(event, 'transactions.html')" href="#">Transacciones</a>
+                        </li>
+                    </ul>
+                    <div class="navbar-user">
+                        <span>Hey <strong id="usernameHome"></strong>, bienvenido</span>
+                        <a href="" class="btn btn-sm btn-outline-danger" onclick="logout(event)">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <main id="contenedorDinamico">
+    <main id="dynamicContainer">
         <h2 class="user"></h2>
         <p>Selecciona una opción del menú para comenzar</p>
 
     </main>
 
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
     <script src="../js/home.js"></script>
+    <script src="../js/deposit.js"></script>
+    <script src="../js/sendMoney.js"></script>
+    <script src="../js//transactions.js"></script>
 </body>
+
 </html>

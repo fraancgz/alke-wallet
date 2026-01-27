@@ -1,3 +1,57 @@
-<section>
-    <h2>Enviar dinero</h2>
+<section class="view-sendMoney d-flex align-items-center justify-content-center"
+    style="min-height: calc(100vh - 100px);">
+    <div class="container row justify-content-center">
+        <div class="card col-12 col-md-8 d-flex flex-column justify-content-center p-2 shadow-lg border-0">
+            <div class="card-body p-5">
+                <div class="text-center mb-5">
+                    <h3 class="fw-bold">Enviar dinero</h3>
+                    <p class="text-muted">Elige el destinatario, ingresa el monto y listo!</p>
+                </div>
+
+                <form id="sendMoneyForm">
+                    <div class="input-group input-group-lg mb-3">
+                        <span class="input-group-text bg-white"><i class="bi bi-envelope"></i></span>
+                        <div class="form-floating">
+                            <input type="email" class="form-control border-start-0" id="destinyMail" name="destinyMail"
+                                placeholder="" required minlength="4">
+                            <label for="destinyMail">Correo Electrónico</label>
+                        </div>
+                        <button class="btn btn-primary" id="findDestinyMail" name="action" value="findDestinyMail"
+                            type="submit">Buscar</button>
+
+                    </div>
+                    <div class="alert alert-dimissable fade show text-center d-none" id="alertFindUser" role="alert">
+                        <i class="bi bi-person-x-fill me-3 fs-4"></i><small id="textFindUser"></small>
+                    </div>
+
+                    <div id="transferSection" class="d-none">
+                        <div class="alert alert-secondary mb-4">
+                            Enviando a: <strong id="receiverUser"></strong>
+                        </div>
+
+                        <label class="form-label fw-semibold" for="transferAmount">Monto a enviar</label>
+                        <div class="input-group input-group-lg mb-3 has-validation">
+                            <span class="input-group-text bg-primary text-white border-0">$</span>
+                            <input type="number" id="transferAmount" name="transferAmount" class="form-control"
+                                placeholder="0">
+                        </div>
+                        <button class="btn btn-primary btn-lg w-100 p-3 shadow-sm" type="submit" name="action"
+                            id="confirmTransfer" value="confirmTransfer" style="border-radius: 10px;">Confirmar
+                            Transferencia</button>
+                    </div>
+                </form>
+
+                <div class="mt-4 pt-3 border-top text-center mb-3">
+                    <small class="text-muted d-block">Tu saldo actual</small>
+                    <span class="h4 fw-bold text-success" id="actualBalanceUser">$0</span>
+                </div>
+
+                <div class="alert alert-dimissable fade show text-center d-none" id="alertSendMoney" role="alert">
+                    <i class="bi bi-piggy-bank me-3 fs-1"></i><small id="textSendMoney"></small>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
 </section>

@@ -123,7 +123,8 @@ registerForm.addEventListener("submit", async (e) => {
             username: usernameClean,
             mail: mailClean,
             pass: passClean,
-            balance: 0
+            balance: 0,
+            transactions: []
         }
 
         registeredUsers.push(newUser)

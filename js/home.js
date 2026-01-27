@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     userIndex = registeredUsers.findIndex(user => user.mail === currentUser)
 
     // Cargo la vista por defecto, el salgo se cargara en el fetch.
-    renderView('deposit.html');
+    renderView('transactions.html');
 
 });
 
@@ -95,6 +95,9 @@ function restoreDepositForm() {
 }
 
 function renderView(view) {
+
+    const dynamicContainer = document.querySelector("#dynamicContainer")
+
     // Mediante la funcion fetch se inicia el proceso de comunicación de red para obtener la pagina solicitada
     // En resumen, busca el archivo HTML
     fetch(view)
@@ -103,7 +106,7 @@ function renderView(view) {
             return response.text() // Convierto la respuesta a texto/html  
         })
         .then(html => {
-            contenedorDinamico.innerHTML = html // Injecto el Html en el contenedor
+            dynamicContainer.innerHTML = html // Injecto el Html en el contenedor
            
             const usernameHome = document.querySelector("#usernameHome")
 
@@ -118,11 +121,11 @@ function renderView(view) {
         })
         .catch(error => {
             console.log(error)
-            contenedorDinamico.innerHTML = "<p>Error al cargar el contenido</p>"
+            dynamicContainer.innerHTML = "<p>Error al cargar el contenido</p>"
         })
 }
 
-function direccionar(e, url) {
+function direct(e, url) {
     e.preventDefault()
 
     // Quito la clase active a todos los elementos  nav-link, para agregarla posteriormente solo al que se le de click
@@ -132,7 +135,7 @@ function direccionar(e, url) {
     e.currentTarget.classList.add('active')
 
     // Cargo la vista, llamando al metodo cargarVista
-    cargarVista(url)
+    renderView(url)
 
 }
 

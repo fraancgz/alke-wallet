@@ -1,18 +1,21 @@
 // Declaro las variables fuera (vacías) para que sean globales
+let registeredUsers = []
+let currentUserMail = ""
 let userIndex = -1
 
 // Cargo la vista deposito para que quede por defecto y asigno respectivos valores a variables globales
 document.addEventListener("DOMContentLoaded", () => {
 
-    const registeredUsers = JSON.parse(localStorage.getItem('dbUsers')) || []
-    const currentUserDeposit = localStorage.getItem('currentUserDeposit')
-    userIndex = registeredUsers.findIndex(user => user.mail === currentUserDeposit)
+    registeredUsers = JSON.parse(localStorage.getItem('dbUsers')) || []
+    currentUserMail = localStorage.getItem('currentUser')
+    userIndex = registeredUsers.findIndex(user => user.mail === currentUserMail)
 
-    // Cargo la vista por defecto, el salgo se cargara en el fetch.
+    // Cargo la vista por defecto.
     renderView('deposit.html');
 
 });
 
+// Funcion que injecta codigo html de las distintas vistas al home
 function renderView(view) {
 
     const dynamicContainer = document.querySelector("#dynamicContainer")
@@ -27,17 +30,20 @@ function renderView(view) {
         .then(html => {
             dynamicContainer.innerHTML = html // Injecto el Html en el contenedor
            
+            // Lógica de actualización de Interfaz
             const usernameHome = document.querySelector("#usernameHome")
 
-            if (userIndex != -1) {
+            if (userIndex != -1 && usernameHome) {
                 // Establesco el nombre de usuario
                 usernameHome.textContent = registeredUsers[userIndex].username
             }
 
             // Inicializa la funcion cuando ya es seguro que cargo el HTML
-            initTransactions()
-            initSendMoney()
-            initDeposit()
+            // Verifico si existen los elementos antes de inicializar
+            if (view.includes('deposit')) initDeposit()
+            if (view.includes('sendMoney')) initSendMoney()
+            if (view.includes('transactions')) initTransactions()
+
         })
         .catch(error => {
             console.log(error)
@@ -45,6 +51,7 @@ function renderView(view) {
         })
 }
 
+// Funcion llamada desde el html para direccionar a la vista seleccionada por el usuario
 function direct(e, url) {
     e.preventDefault()
 
@@ -59,6 +66,7 @@ function direct(e, url) {
 
 }
 
+// Funcion para cerrar sesion
 function logout(e) {
     e.preventDefault()
     window.location.href = "../index.html"

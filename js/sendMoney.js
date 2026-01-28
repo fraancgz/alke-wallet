@@ -1,123 +1,127 @@
-
 function initSendMoney() {
     const destinyMail = document.getElementById("destinyMail");
     if (!destinyMail) return;
 
-    // Lógica de cargar usuarios y renderizar
     const registeredUsersSend = JSON.parse(localStorage.getItem('dbUsers')) || [];
-    const currentUserSend = localStorage.getItem('currentUser')
-    const userIndex = registeredUsersSend.findIndex(user => user.mail === currentUserSend)
-
-    //console.log(registeredUsersSend)
-
+    const currentUserSend = localStorage.getItem('currentUser');
+    const userIndex = registeredUsersSend.findIndex(user => user.mail === currentUserSend);
     const sendMoneyForm = document.querySelector("#sendMoneyForm");
+    const actualBalanceUser = document.querySelector("#actualBalanceUser");
+    const transferAmount = document.querySelector("#transferAmount");
+    const confirmTransfer = document.querySelector("#confirmTransfer");
 
-    const actualBalanceUser = document.querySelector("#actualBalanceUser")
-    showBalanceSendMoney(currentUserSend, actualBalanceUser, registeredUsersSend[userIndex].balance)
+    showBalanceSendMoney(currentUserSend, actualBalanceUser, registeredUsersSend[userIndex].balance);
+
+    // Permite apretar enter y e iniciar el evento submit
+    transferAmount.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            // Si la sección de transferencia es visible, forzamos el clic en confirmar
+            const transferSection = document.querySelector("#transferSection");
+            if (!transferSection.classList.contains("containerInvisible")) {
+                e.preventDefault();
+                confirmTransfer.click();
+            }
+        }
+    });
 
     sendMoneyForm.addEventListener("submit", (e) => {
+        const buttonClicked = e.submitter;
 
-        e.preventDefault()
+        // 1. Validaciones previas si es Confirmar
+        if (buttonClicked && buttonClicked.value === "confirmTransfer") {
+            transferAmount.required = true;
+            transferAmount.setAttribute('min', '1000');
 
-        const alertFindUser = document.querySelector("#alertFindUser")
-        const textFindUser = document.querySelector("#textFindUser")
+            if (!sendMoneyForm.reportValidity()) {
+                e.preventDefault();
+                return;
+            }
+        }
+
+        e.preventDefault(); // Detenemos el envío real
+
+        const alertFindUser = document.querySelector("#alertFindUser");
+        const textFindUser = document.querySelector("#textFindUser");
         const findMail = destinyMail.value.trim().toLowerCase();
+        const receiverUser = document.querySelector("#receiverUser");
+        const findDestinyMail = document.querySelector("#findDestinyMail");
 
-        // Identifico el botón al que se le dió click
-        const buttoncLicked = e.submitter
-
-        if (buttoncLicked.value === "findDestinyMail") {
-
-            // Validación rápida: no transferirse a uno mismo
+        // LÓGICA: BUSCAR USUARIO
+        if (buttonClicked.value === "findDestinyMail") {
             if (findMail === currentUserSend) {
-                showAlertMessageSend(alertFindUser, "alert-danger", textFindUser, "No te puedes enviar dinero a ti mismo")
+                showAlertMessageSend(alertFindUser, "alert-danger", textFindUser, "No te puedes enviar dinero a ti mismo");
                 return;
             }
 
-            // Buscar al destinatario en la "base de datos"
             const userDestiny = registeredUsersSend.find(user => user.mail === findMail);
 
             if (userDestiny) {
-                // console.log("Usuario encontrado:", userDestiny.username);
+                // Bloqueamos búsqueda
+                changeEnableState(destinyMail, findDestinyMail, true);
 
-                const transferSection = document.querySelector("#transferSection")
-                const receiverUser = document.querySelector("#receiverUser")
-                const findDestinyMail = document.querySelector("#findDestinyMail")
+                const transferSection = document.querySelector("#transferSection");
+                receiverUser.textContent = userDestiny.mail;
+                transferSection.classList.remove("containerInvisible");
 
-                receiverUser.textContent = userDestiny.mail
-                transferSection.classList.remove("d-none")
-
-                changeEnableState(destinyMail, findDestinyMail, true)
-
+                // Foco al monto
+                setTimeout(() => transferAmount.focus(), 100);
             } else {
-                showAlertMessageSend(alertFindUser, "alert-warning", textFindUser, "Correo no registrado")
-                return;
+                showAlertMessageSend(alertFindUser, "alert-warning", textFindUser, "Correo no registrado");
             }
-        } else if (buttoncLicked.value === "confirmTransfer") {
 
-            const transferAmount = document.querySelector("#transferAmount")
-            const numberAmount = Number(transferAmount.value)
+        // LÓGICA: CONFIRMAR TRANSFERENCIA
+        } else if (buttonClicked.value === "confirmTransfer") {
+            const numberAmount = Number(transferAmount.value);
+            const alertSendMoney = document.querySelector("#alertSendMoney");
+            const textSendMoney = document.querySelector("#textSendMoney");
 
-            transferAmount.required = true;
-            transferAmount.min = 1000
+            if (registeredUsersSend[userIndex].balance >= numberAmount) {
+                // --- PROCESO DE GUARDADO ---
+                const transAmount = numberAmount;
+                const destMail = receiverUser.textContent;
 
-            if (transferAmount.checkValidity()) {
-                
-                const alertSendMoney = document.querySelector("#alertSendMoney")
-                const textSendMoney = document.querySelector("#textSendMoney")
+                const transactionSender = {
+                    id: Date.now(),
+                    date: new Date().toISOString(),
+                    type: "transfer",
+                    amount: transAmount,
+                    sender: currentUserSend,
+                    receiver: destMail
+                };
 
-                if (registeredUsersSend[userIndex].balance >= numberAmount) {
+                registeredUsersSend[userIndex].balance -= transAmount;
+                registeredUsersSend[userIndex].transactions.push(transactionSender);
 
-                    const dataForm = new FormData(sendMoneyForm)
-                    const { destinyMail: destMail, transferAmount } = Object.fromEntries(dataForm.entries())
-
-                    const transactionSender = {
-                        id: Date.now(),                  // Un número único (usar el timestamp es un truco fácil)
-                        date: new Date().toISOString(),  // Fecha completa para poder ordenar cronológicamente
-                        type: "transfer",                // "deposit", "send" o "receive"
-                        amount: Number(transferAmount),          // El valor numérico
-                        sender: currentUserSend,             // Email o nombre de quien envía
-                        receiver: destMail               // Email o nombre de quien recibe
-                    }
-
-                    // Agrego el registro de transaccion para el usuario que envía, modificando el tipo a transferencia
-                    registeredUsersSend[userIndex].balance -= numberAmount
-                    registeredUsersSend[userIndex].transactions.push(transactionSender)
-                    localStorage.setItem('dbUsers', JSON.stringify(registeredUsersSend))
-
-                    const transactionReceiver = {
-                        id: Date.now(),                     // Un número único (usar el timestamp es un truco fácil)
-                        date: new Date().toISOString(),     // Fecha completa para poder ordenar cronológicamente
-                        type: "deposit",                    // "deposit", "send" o "receive"
-                        amount: Number(transferAmount),             // El valor numérico
-                        sender: currentUserSend,                   // Email o nombre de quien envía
-                        receiver: destMail               // Email o nombre de quien recibe
-                    }
-
-
-
-                    // Busco al usuario que recive la transferencia por su correo
-                    const receiveUserIndex = registeredUsersSend.findIndex(user => user.mail === destMail)
-
-                    // Agrego el registro de transaccion para el usuario que recive, modificando el tipo a deposito
-                    registeredUsersSend[receiveUserIndex].balance += numberAmount
-                    registeredUsersSend[receiveUserIndex].transactions.push(transactionReceiver)
-                    localStorage.setItem('dbUsers', JSON.stringify(registeredUsersSend))
-
-                    showAlertMessageSend(alertSendMoney, "alert-success", textSendMoney, "Transferencia realizada con éxito")
-
-                    showBalanceSendMoney(currentUserSend, actualBalanceUser, registeredUsersSend[userIndex].balance)
-
-
-                } else {  
-                    showAlertMessageSend(alertSendMoney, "alert-danger", textSendMoney, "No tienes suficiente saldo para transferir")
-                    return;
+                const receiveUserIndex = registeredUsersSend.findIndex(user => user.mail === destMail);
+                if (receiveUserIndex !== -1) {
+                    const transactionReceiver = { ...transactionSender, type: "deposit" };
+                    registeredUsersSend[receiveUserIndex].balance += transAmount;
+                    registeredUsersSend[receiveUserIndex].transactions.push(transactionReceiver);
                 }
 
+                localStorage.setItem('dbUsers', JSON.stringify(registeredUsersSend));
+
+                // --- ÉXITO Y LIMPIEZA ---
+                showAlertMessageSend(alertSendMoney, "alert-success", textSendMoney, "Transferencia realizada con éxito");
+                showBalanceSendMoney(currentUserSend, actualBalanceUser, registeredUsersSend[userIndex].balance);
+
+                sendMoneyForm.reset();
+                receiverUser.textContent = "";
+                document.querySelector("#transferSection").classList.add("containerInvisible");
+                
+                // Habilito correo para nueva búsqueda
+                changeEnableState(destinyMail, findDestinyMail, false);
+                transferAmount.required = false;
+                transferAmount.removeAttribute('min');
+
+            } else {
+                showAlertMessageSend(alertSendMoney, "alert-danger", textSendMoney, "No tienes suficiente saldo");
             }
         }
     });
 }
+
+
 
 // Funcion mostrar el saldo solo si currentUser y actualBalanceUser estan cargados previamente
 function showBalanceSendMoney(elementUserSend, elementBalanceUserSend, userBalanceSend) {

@@ -16,18 +16,25 @@ function renderTransactions(users, index) {
         return;
     }
 
-    history.forEach(transaction => {
+    history.toReversed().forEach(transaction => {
         const isDeposit = transaction.type === 'deposit'
         const color = isDeposit ? 'success' : 'danger'
         const symbol = isDeposit ? '+' : '-'
+        const transaccionDate = new Date(transaction.date)
+
+        const dateTrans = transaccionDate.toLocaleDateString('es-ES'); // "27/01/2026"
+        const hourTrans = transaccionDate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }); // "18:26"
        
         const cardHTML = `
             <div class="card border-0 shadow-sm border-start border-${color} border-5">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="mb-1 fw-bold text-capitalize">Origen: ${transaction.sender}</h6>
+                        <h6 class="mb-1 fw-bold text-capitalize">${dateTrans} | ${hourTrans}</h6>
+                        <p class="mb-1 text-muted">Origen: ${transaction.sender}</p>
                         <small class="text-muted">Destino: ${transaction.receiver}</small>
+                       
                     </div>
+                    
                     <div class="text-end">
                         <span class="h5 fw-bold text-${color}">
                             ${symbol} $${transaction.amount.toLocaleString('es-CL')}
